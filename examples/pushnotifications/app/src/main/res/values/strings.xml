@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">PushNotifications</string>
+
+    <!-- START INTEGRATION -->
+    <string translatable="false"  name="com_bird_workspace_id">YOUR_WORKSPACE_ID</string>
+    <string translatable="false"  name="com_bird_base_url">YOUR_BASE_URL</string>
+    <string translatable="false"  name="com_bird_config_key">YOUR_CONFIG_KEY</string>
+    <!-- END INTEGRATION -->
+
+
+</resources>
