@@ -72,6 +72,6 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-test-manifest")
 
     // START INTEGRATION
-    implementation("com.bird:android-sdk:+")
+    implementation("com.bird:android-sdk:0.0.1-beta")
     // END INTEGRATION
 }
