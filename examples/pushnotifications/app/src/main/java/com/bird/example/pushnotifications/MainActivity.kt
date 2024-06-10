@@ -27,7 +27,7 @@ class MainActivity : ObservableActivity() {
     companion object {
         private const val TAG = "MainActivity"
     }
-    
+
     override fun onCreate(savedInstanceState: Bundle?) {
         val bird = Bird(this, this)
         alwaysRegisterActivityLifecycleCallbacks(bird.lifeCycleCallbacks)
@@ -100,7 +100,7 @@ fun MainScreen(
                         Code("contact.identify(SignedIdentity)")
                     }
                     Button(onClick =
-                    { coroutineScope.launch { onLoginExternalIdentifier } }) {
+                    { coroutineScope.launch { onLoginExternalIdentifier() } }) {
                         Code("contact.identify(ExternalIdentifier)")
                     }
                 }
