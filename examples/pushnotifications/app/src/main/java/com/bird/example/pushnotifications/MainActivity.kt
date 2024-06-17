@@ -2,6 +2,7 @@ package com.bird.example.pushnotifications
 
 import android.os.Bundle
 import android.util.Log
+import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -23,15 +24,14 @@ import com.bird.contact.models.SignedIdentity
 import com.bird.example.pushnotifications.ui.theme.PushNotificationsTheme
 import kotlinx.coroutines.launch
 
-class MainActivity : ObservableActivity() {
+class MainActivity : ComponentActivity() {
     companion object {
         private const val TAG = "MainActivity"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        val bird = Bird(this, this)
-        alwaysRegisterActivityLifecycleCallbacks(bird.lifeCycleCallbacks)
         super.onCreate(savedInstanceState)
+        val bird = Bird(this, this)
         val activity = this
         val signedIdentity = "replace_with_user_signedIdentity"
 
@@ -52,7 +52,6 @@ class MainActivity : ObservableActivity() {
                     try {
                         bird.contact.identify(
                             ExternalIdentifier(
-                                "externalid",
                                 "987654321"
                             )
                         )
