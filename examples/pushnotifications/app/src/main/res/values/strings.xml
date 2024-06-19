@@ -1,9 +1,11 @@
 <resources>
     <string name="app_name">PushNotifications</string>
 
-    <!-- START INTEGRATION -->
+    <!-- Set Application Key -->
     <!--    <string translatable="false"  name="com_bird_application_key">your_application_key</string>-->
-    <!-- END INTEGRATION -->
+
+    <!-- It's possible to set log level -->
+    <!--    <string name="com_bird_log_level" translatable="false">info</string>-->
 
 
 </resources>
