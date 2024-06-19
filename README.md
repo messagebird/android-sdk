@@ -10,6 +10,8 @@ Using Bird Android SDK, you get access to:
 
 ## How to
 
+You can find full documentation [here](https://docs.bird.com/api/client-sdks/sdk-integration/android-sdk).
+
 ### Step 1: Add Bird Android SDK dependency
 
 Add the `com.bird:android-sdk` dependency to your app’s `build.gradle`.
@@ -74,7 +76,8 @@ Add the following `com.bird.BirdFirebaseMessagingService` as a service inside `A
         <!-- START: Add This Part -->
         <service 
             android:name="com.bird.BirdFirebaseMessagingService"
-            android:exported="false">
+            android:exported="false"
+            tools:ignore="Instantiatable">
         <intent-filter>
             <action android:name="com.google.firebase.MESSAGING_EVENT" />
         </intent-filter>
