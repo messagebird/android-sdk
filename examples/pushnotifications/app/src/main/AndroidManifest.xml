@@ -24,7 +24,7 @@
             </intent-filter>
         </activity>
 
-        <!-- START: INTEGRATION -->
+        <!-- Add BirdFirebaseMessagingService service -->
         <service
             android:name="com.bird.BirdFirebaseMessagingService"
             android:exported="false"
@@ -33,7 +33,16 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-        <!-- END INTEGRATION -->
+
+
+        <!-- Add MyBroadcastReceiver receiver -->
+        <receiver
+            android:name=".MyBroadcastReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.bird.broadcast.NOTIFICATION" />
+            </intent-filter>
+        </receiver>
 
     </application>
 

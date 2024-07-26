@@ -19,6 +19,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bird.Bird
+import com.bird.contact.models.Attributes
 import com.bird.contact.models.ExternalIdentifier
 import com.bird.contact.models.SignedIdentity
 import com.bird.example.pushnotifications.ui.theme.PushNotificationsTheme
@@ -31,9 +32,11 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val bird = Bird(this, this)
+        val bird = Bird(this)
         val activity = this
         val signedIdentity = "replace_with_user_signedIdentity"
+        val notificationInteraction = bird.notifications.getNotificationInteraction(intent)
+        Log.v(TAG, "notificationInteraction $notificationInteraction")
 
         setContent {
             MainScreen(
@@ -45,7 +48,7 @@ class MainActivity : ComponentActivity() {
                             )
                         )
                     } catch (e: Throwable) {
-                        Log.v("MainScreen", "contact.identify(SignedIdentity) failed with $e")
+                        Log.v(TAG, "contact.identify(SignedIdentity) failed with $e")
                     }
                 },
                 onLoginExternalIdentifier = {
@@ -56,14 +59,31 @@ class MainActivity : ComponentActivity() {
                             )
                         )
                     } catch (e: Throwable) {
-                        Log.v("MainScreen", "contact.identify(ExternalIdentifier) failed with $e")
+                        Log.v(TAG, "contact.identify(ExternalIdentifier) failed with $e")
+                    }
+                },
+                onPutAttributes = {
+                    try {
+                        val attributes = Attributes()
+                            .put("displayName", "Android push notification example")
+//                            .put("int", 123)
+//                            .put("long", 123.toLong())
+//                            .put("null", null)
+//                            .put("list(string)", listOf("a", "b"))
+//                            .put("list(int)", listOf(1, 2))
+//                            .put("list(mixed)", listOf("a", 1))
+                        bird.contact.putAttributes(
+                            attributes
+                        )
+                    } catch (e: Throwable) {
+                        Log.v(TAG, "contact put attributes failed with $e")
                     }
                 },
                 onLogout = {
                     try {
                         bird.contact.reset()
                     } catch (e: Throwable) {
-                        Log.v("MainScreen", "contact reset failed with $e")
+                        Log.v(TAG, "contact reset failed with $e")
                     }
                 },
                 onRequestPushNotificationPermission = {
@@ -81,6 +101,7 @@ fun MainScreen(
     onLoginExternalIdentifier: suspend () -> Unit,
     onLogout: suspend () -> Unit,
     onRequestPushNotificationPermission: suspend () -> Unit,
+    onPutAttributes: suspend () -> Unit,
 ) {
     PushNotificationsTheme {
         val coroutineScope = rememberCoroutineScope()
@@ -101,6 +122,13 @@ fun MainScreen(
                     Button(onClick =
                     { coroutineScope.launch { onLoginExternalIdentifier() } }) {
                         Code("contact.identify(ExternalIdentifier)")
+                    }
+                }
+                Column {
+                    Text(text = "Set attributes")
+                    Button(onClick =
+                    { coroutineScope.launch { onPutAttributes() } }) {
+                        Code("contact.putAttributes(attributes)")
                     }
                 }
                 Column {
@@ -138,6 +166,7 @@ fun MainScreenPreview() {
         onLoginSignedIdentity = {},
         onLoginExternalIdentifier = {},
         onLogout = {},
-        onRequestPushNotificationPermission = {}
+        onRequestPushNotificationPermission = {},
+        onPutAttributes = {}
     )
 }
